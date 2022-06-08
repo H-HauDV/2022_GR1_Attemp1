@@ -1,12 +1,18 @@
 import React from 'react'
-import { Header }  from "./components"
+import { Header, CreateContainer, MainContainer }  from "./components"
+import { Route, Routes} from "react-router-dom"
 const App = () => {
   return (
-    <div 
-      className="w-screen h-auto flex flex-col"
-      >
-        <Header/>
-      </div>
+    <div className="w-screen h-auto flex flex-col bg-primary">
+      <Header/>
+      <main className="mt-24 p-8 w-full">
+        <Routes>
+          <Route path="/*" element={<MainContainer />} />
+          <Route path="/create-item" element={<CreateContainer />} />
+
+        </Routes>
+      </main>
+    </div>
   )
 }
 
