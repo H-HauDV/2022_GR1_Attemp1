@@ -1,5 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
+import {app} from '../../firebase.config'
 
 import { MdShoppingBasket } from "react-icons/md";
 import Logo from '../../img/logo.png'
@@ -8,8 +11,12 @@ import Avatar from '../../img/avatar.png'
 import {motion} from "framer-motion"
 const Header = () => {
 
-  const login= () => {
-    
+  const firebaseAuth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  const login = async () => {
+    const response = await signInWithPopup(firebaseAuth, provider);
+    console.log(response)
   }
   return (
     <header className="fixed x-50 w-screen p-6 px-16">
