@@ -7,6 +7,10 @@ import Avatar from '../../img/avatar.png'
 
 import {motion} from "framer-motion"
 const Header = () => {
+
+  const login= () => {
+    
+  }
   return (
     <header className="fixed x-50 w-screen p-6 px-16">
       {/* Destop tablet */}
@@ -35,12 +39,15 @@ const Header = () => {
               </div>
             </div>
 
-            <motion.img 
-              whileTap={{scale :0.6}}
-              src={Avatar} 
-              className="w-10 min-w-[40px] h10 min-h-[40px] drop-shadow-xl cursor-pointer" 
-              alt="userprofile" 
-            />
+            <div className="relative">
+              <motion.img 
+                whileTap={{scale :0.6}}
+                src={Avatar} 
+                className="w-10 min-w-[40px] h10 min-h-[40px] drop-shadow-xl cursor-pointer" 
+                alt="userprofile" 
+                onClick={login}
+              />
+            </div>
           </div>
         </div>
       {/* Mobile */} 
