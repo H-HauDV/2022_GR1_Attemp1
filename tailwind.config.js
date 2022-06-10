@@ -1,7 +1,5 @@
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       width: {
@@ -49,8 +47,8 @@ module.exports = {
         textClolor: "#515151",
         cartNumBg: "#e80013",
         primary: "#f5f3f3",
-      }
+      },
     },
   },
   plugins: [],
-}
+};
