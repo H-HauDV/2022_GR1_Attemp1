@@ -110,10 +110,18 @@ const Header = () => {
       </div>
       {/* Mobile */}
       <div className="flex items-center justify-between md:hidden w-full h-full ">
+        <div className="relative flex items-center justify-center">
+          <MdShoppingBasket className="text-textColor text-2xl cursor-pointer" />
+          <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
+            <p className="text-xs text-white font-semibold">2</p>
+          </div>
+        </div>
+
         <Link to={"/"} className="flex items-center gap-2">
           <img src={Logo} className="w-8 object-cover" alt="logo" />
           <p className="text-headingColor text-xl font-bold">City</p>
         </Link>
+
         <div className="relative">
           <motion.img
             whileTap={{ scale: 0.6 }}
