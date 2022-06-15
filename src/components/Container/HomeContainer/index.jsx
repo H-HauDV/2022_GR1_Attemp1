@@ -1,8 +1,13 @@
-import React from 'react'
+import React from "react";
 import Delivery from "../../../img/delivery.png";
+import HeroBG from "../../../img/heroBg.png";
+
 const HomeContainer = () => {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full" id="home">
+    <section
+      className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full"
+      id="home"
+    >
       <div
         className="py-2 flex-1 flex flex-col items-start
        justify-center gap-6"
@@ -24,7 +29,9 @@ const HomeContainer = () => {
         </div>
         <p className="text-[2.5rem] md:text-[4.25rem] font-bold  text-headingColor">
           The Fastest Delivery in{" "}
-          <span className="text-orange-600 text-[3rem] lg:text-[5rem]">Your City</span>
+          <span className="text-orange-600 text-[3rem] lg:text-[5rem]">
+            Your City
+          </span>
         </p>
         <p className="text-base text-textColor text-center md:text-left md:w-[80%]">
           Lorem ipsum dolor sit amet lore Lorem ipsum dolor sit amet lore Lorem
@@ -40,9 +47,12 @@ const HomeContainer = () => {
           Order Now
         </button>
       </div>
-      <div className="py-2 bg-blue-400 flex-1"></div>
+      <div className="py-2 flex-1 flex items-center">
+        <img src={HeroBG} className="ml-auto w-full lg:w-auto h-420 lg:h-650" alt="bg" />
+        <div className="w-full h-full absolute flex items-center justify-center"></div>
+      </div>
     </section>
-  )
-}
+  );
+};
 
-export default HomeContainer
+export default HomeContainer;
