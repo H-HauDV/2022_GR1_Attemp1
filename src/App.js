@@ -11,7 +11,7 @@ const App = () => {
         <main className="mt-14 md:mt-20 px-4 md:px-16 py-4 w-full">
           <Routes>
             <Route path="/*" element={<MainContainer />} />
-            <Route path="/create-item" element={<CreateContainer />} />
+            <Route path="/create" element={<CreateContainer />} />
           </Routes>
         </main>
       </div>
