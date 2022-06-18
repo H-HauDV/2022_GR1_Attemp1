@@ -1,8 +1,7 @@
 import React from "react";
 import Delivery from "../../../img/delivery.png";
 import HeroBG from "../../../img/heroBg.png";
-import I1 from "../../../img/i1.png";
-
+import homeHeaderData from "../../../utils/homeHeaderData"
 const HomeContainer = () => {
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full" id="home">
@@ -51,20 +50,24 @@ const HomeContainer = () => {
           className="ml-auto w-full lg:w-auto h-420 lg:h-650"
           alt="bg"
         />
-        <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center px-16 py-4">
-          <div
-            className="w-190 p-4 bg-cardOverlay backdrop-blur-md rounded-3xl
-           flex items-center justify-center flex-col"
-          >
-            <img src={I1} alt="I1" className="w-40 -mt-20" />
-            <p className="text-lg font-semibold text-textColor">IceCream</p>
-            <p className="text-sm text-lighttextGray font-semibold my-3">
-              Chocolate & Vanilla
-            </p>
-            <p className="text-sm font-semibold text-headingColor">
-              <span className="text-xs text-red-600">$</span> 5.25
-            </p>
-          </div>
+        <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center lg:px-32 py-4 gap-4 flex-wrap">
+          {homeHeaderData && homeHeaderData.map(item=>(
+             <div key={item.id}
+             className="lg:w-190 p-4 bg-cardOverlay backdrop-blur-md rounded-3xl
+            flex items-center justify-center flex-col drop-shadow-lg"
+           >
+             <img src={item.imageSrc} alt="I1" className="w-20 lg:w-40 -mt-10 lg:-mt-20" />
+             <p className="text-base lg:text-xl font-semibold text-textColor mt-2 lg:mt-4">
+               {item.name}
+             </p>
+             <p className="text-[12px] lg:text-sm text-lighttextGray font-semibold my-1 lg:my-3">
+               {item.description}
+             </p>
+             <p className="text-sm font-semibold text-headingColor">
+               <span className="text-xs text-red-600">$</span> {item.price}
+             </p>
+           </div>
+          ))}
         </div>
       </div>
     </section>
