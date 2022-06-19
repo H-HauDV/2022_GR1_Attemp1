@@ -16,7 +16,7 @@ const HomeContainer = () => {
           <p className="text-base text-orange-500 font-semibold">
             Bike Delivery
           </p>
-          <div className="w-8 h-8 bg-white rounded-full overflow-hidden drop-shadow-xl">
+          <div className="w-8 h-8 bg-white rounded-full overflow-hidden shadow-xl">
             <img
               src={Delivery}
               alt="delivery"
@@ -44,36 +44,39 @@ const HomeContainer = () => {
           Order Now
         </button>
       </div>
-      <div className="py-2 flex-1 flex items-center relative">
-        <img
-          src={HeroBG}
-          className="ml-auto w-full lg:w-auto h-420 lg:h-650"
-          alt="bg"
-        />
-        <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center lg:px-32 py-4 gap-4 flex-wrap">
-          {homeHeaderData &&
-            homeHeaderData.map((item) => (
-              <div
-                key={item.id}
-                className="lg:w-190 p-4 bg-cardOverlay backdrop-blur-md rounded-3xl
+
+      <div className="">
+        <div className="py-2 flex-1 flex items-center relative">
+          <img
+            src={HeroBG}
+            className="ml-auto w-full lg:w-auto h-420 lg:h-650"
+            alt="bg"
+          />
+          <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center lg:px-32 py-4 gap-4 flex-wrap">
+            {homeHeaderData &&
+              homeHeaderData.map((item) => (
+                <div
+                  key={item.id}
+                  className="lg:w-190 p-4 bg-cardOverlay backdrop-blur-md rounded-3xl
             flex items-center justify-center flex-col drop-shadow-lg"
-              >
-                <img
-                  src={item.imageSrc}
-                  alt="I1"
-                  className="w-20 lg:w-40 -mt-10 lg:-mt-20"
-                />
-                <p className="text-base lg:text-xl font-semibold text-textColor mt-2 lg:mt-4">
-                  {item.name}
-                </p>
-                <p className="text-[12px] lg:text-sm text-lighttextGray font-semibold my-1 lg:my-3">
-                  {item.description}
-                </p>
-                <p className="text-sm font-semibold text-headingColor">
-                  <span className="text-xs text-red-600">$</span> {item.price}
-                </p>
-              </div>
-            ))}
+                >
+                  <img
+                    src={item.imageSrc}
+                    alt="I1"
+                    className="w-20 lg:w-40 -mt-10 lg:-mt-20"
+                  />
+                  <p className="text-base lg:text-xl font-semibold text-textColor mt-2 lg:mt-4">
+                    {item.name}
+                  </p>
+                  <p className="text-[12px] lg:text-sm text-lighttextGray font-semibold my-1 lg:my-3">
+                    {item.description}
+                  </p>
+                  <p className="text-sm font-semibold text-headingColor">
+                    <span className="text-xs text-red-600">$</span> {item.price}
+                  </p>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
     </section>

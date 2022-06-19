@@ -5,7 +5,7 @@ import { actionType } from "../../context/reducer";
 import { useStateValue } from "../../context/StateProvider";
 import { app } from "../../firebase.config";
 
-import { MdShoppingBasket, MdLogout } from "react-icons/md";
+import { MdShoppingBasket, MdLogout, MdAdd } from "react-icons/md";
 import Logo from "../../img/logo.png";
 import Avatar from "../../img/avatar.png";
 import { motion } from "framer-motion";
@@ -102,7 +102,7 @@ const Header = () => {
                     className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base"
                     onClick={() => setIsMenu(false)}
                   >
-                    Create
+                    Create <MdAdd />
                   </p>
                 </Link>
                 <p
@@ -158,7 +158,7 @@ const Header = () => {
                   className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base"
                   onClick={() => setIsMenu(false)}
                 >
-                  Create
+                  Create <MdAdd />
                 </p>
               </Link>
               <ul className="flex flex-col">
