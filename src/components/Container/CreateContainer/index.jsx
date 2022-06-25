@@ -17,8 +17,12 @@ import {
 } from "firebase/storage";
 import { storage } from "../../../firebase.config";
 import { saveItem } from "../../../utils/firebaseFunctions";
+import { useStateValue } from "../../../context/StateProvider";
+import { getAllFoodItems } from "../../../utils/firebaseFunctions";
+import { actionType } from "../../../context/reducer"
 
 const CreateContainer = () => {
+  const [{ foodItems }, dispatch] = useStateValue();
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
   const [price, setPrice] = useState("");
@@ -100,7 +104,7 @@ const CreateContainer = () => {
           imageURL: imageAsset,
           category: category,
           calories: calories,
-          proce: price,
+          price: price,
           quantity: 1,
         };
         saveItem(data);
@@ -123,13 +127,22 @@ const CreateContainer = () => {
         setIsLoading(false);
       }, 4000);
     }
+    fetchData()
   };
   const clearData = () => {
-    setTitle("Clear Data");
+    setTitle("");
     setImageAsset(null);
-    setCategory("");
     setPrice("");
+    setCalories("");
     setCategory("Select Category");
+  };
+  const fetchData = async () => {
+    await getAllFoodItems().then((data) => {
+      dispatch({
+        type: actionType.SET_FOOD_ITEMS,
+        foodItems: data,
+      });
+    });
   };
   return (
     <div className="w-full min-h-screen flex items-center justify-center">
