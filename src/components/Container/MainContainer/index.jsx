@@ -1,4 +1,5 @@
 import React from "react";
+import CartContainer from "../CartContainer";
 import HomeContainer from "../HomeContainer"
 import MenuContainer from "../MenuContainer";
 const MainContainer = () => {
@@ -7,6 +8,7 @@ const MainContainer = () => {
       <HomeContainer/>
 
       <MenuContainer/>
+      <CartContainer/>
     </div>
   );
 };
