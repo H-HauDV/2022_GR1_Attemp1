@@ -25,7 +25,7 @@ const CartContainer = () => {
       return accumulator + item.qty * item.price;
     }, 0);
     setTot(totalPrice);
-    console.log(tot);
+    // console.log(tot);
   }, [tot, flag]);
 
   const clearCart = () => {
@@ -127,6 +127,5 @@ const CartContainer = () => {
     </motion.div>
   );
 };
-
 
 export default CartContainer;
