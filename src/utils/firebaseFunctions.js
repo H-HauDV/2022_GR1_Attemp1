@@ -1,5 +1,12 @@
 import { firestore } from "../firebase.config";
-import { collection, doc, setDoc, getDocs, query, orderBy } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+  query,
+  orderBy,
+} from "firebase/firestore";
 //Saving new item
 export const saveItem = async (data) => {
   await setDoc(doc(firestore, "foodItems", `${Date.now()}`), data, {

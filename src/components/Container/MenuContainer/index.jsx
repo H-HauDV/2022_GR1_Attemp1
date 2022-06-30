@@ -6,24 +6,17 @@ import { useStateValue } from "../../../context/StateProvider";
 import RowContainer from "../RowContainer";
 const MenuContainer = () => {
   const [filter, setFilter] = useState("chicken");
-  // useEffect(() => {}, [filter]);
+
   const [{ foodItems }, dispatch] = useStateValue();
 
   return (
     <section className="w-full my-6" id="menu">
       <div className="w-full flex flex-col items-center justify-center">
-        <p
-          className="text-2xl font-semibold capitalize text-headingColor relative
-            before:absolute before:rounded-lg before:content before:w-16 before:h-1
-            before:-bottom-2 before:left-0 before:bg-gradient-to-tr mr-auto
-            from-orange-400 to-orange-600 transition-all ease-in-out duration-100"
-        >
-          Our hot dishes
+        <p className="text-2xl font-semibold capitalize text-headingColor relative before:absolute before:rounded-lg before:content before:w-16 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto">
+          Our Hot Dishes
         </p>
-        <div
-          className="w-full flex items-center justify-start lg:justify-center
-            gap-8 py-6 mt-6 overflow-x-scroll scrollbar-none"
-        >
+
+        <div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none">
           {categoryData &&
             categoryData.map((category) => (
               <motion.div
@@ -32,15 +25,15 @@ const MenuContainer = () => {
                 className={`group ${
                   filter === category.urlParam ? "bg-cartNumBg" : "bg-white"
                 } w-24 min-w-[94px] h-28
-            cursor-pointer rounded-lg drop-shadow-lg flex flex-col
-            gap-3 items-center justify-center hover:bg-cartNumBg`}
+          cursor-pointer rounded-lg drop-shadow-lg flex flex-col
+          gap-3 items-center justify-center hover:bg-cartNumBg`}
                 onClick={() => setFilter(category.urlParam)}
               >
                 <div
                   className={`w-10 h-10 rounded-full shadow-lg ${
                     filter === category.urlParam ? "bg-white" : "bg-cartNumBg"
                   } 
-              group-hover:bg-white flex items-center justify-center`}
+            group-hover:bg-white flex items-center justify-center`}
                 >
                   <IoFastFood
                     className={` ${
@@ -62,6 +55,7 @@ const MenuContainer = () => {
               </motion.div>
             ))}
         </div>
+
         <div className="w-full">
           <RowContainer
             flag={false}
