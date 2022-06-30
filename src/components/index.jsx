@@ -6,6 +6,8 @@ export { default as HomeContainer } from "./Container/HomeContainer";
 export { default as MenuContainer } from "./Container/MenuContainer";
 export { default as RowContainer } from "./Container/RowContainer";
 export { default as CartContainer } from "./Container/CartContainer";
+export { default as ProfileContainer } from "./Container/ProfileContainer";
+
 
 export { default as CartItem } from "./Mix/CartItem";
 export { default as CreateLoader } from "./Loader/CreateLoader";
