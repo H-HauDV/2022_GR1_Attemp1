@@ -19,9 +19,9 @@ import { storage } from "../../../firebase.config";
 import { saveItem } from "../../../utils/firebaseFunctions";
 import { useStateValue } from "../../../context/StateProvider";
 import { getAllFoodItems } from "../../../utils/firebaseFunctions";
-import { actionType } from "../../../context/reducer"
-
-const CreateContainer = () => {
+import { actionType } from "../../../context/reducer";
+import "./createpage.scss";
+const CreatePage = () => {
   const [{ foodItems }, dispatch] = useStateValue();
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
@@ -127,7 +127,7 @@ const CreateContainer = () => {
         setIsLoading(false);
       }, 4000);
     }
-    fetchData()
+    fetchData();
   };
   const clearData = () => {
     setTitle("");
@@ -145,17 +145,14 @@ const CreateContainer = () => {
     });
   };
   return (
-    <div className="w-full min-h-screen flex items-center justify-center">
-      <div
-        className="w-[90%] md:w-[75%] border border-gray-300 rounded-lg p-4 
-      flex flex-col items-center justify-center gap-4"
-      >
+    <div className="create-container">
+      <div className=" md:w-[75%] create-wrapper">
         {fields && (
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className={`w-full p-2 rounded-lg text-center text-lg font-semibold ${
+            className={`noftify ${
               alertStatus === "danger"
                 ? "bg-red-400 text-red-800"
                 : "bg-emerald-400 text-emerald-800"
@@ -165,24 +162,22 @@ const CreateContainer = () => {
           </motion.p>
         )}
 
-        <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-          <MdFastfood className="text-xl text-gray-700" />
+        <div className="food-name">
+          <MdFastfood className="food-icon" />
           <input
             type="text"
             required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Give me a title..."
-            className="w-full h-full text-lg bg-transparent
-            outline-none border-none placeholder:text-gray-400 text-textColor"
+            className="food-name-input"
           />
         </div>
 
-        <div className="w-full">
+        <div className="food-category-wrapper">
           <select
             onChange={(e) => setCategory(e.target.value)}
-            className="outline-none w-full text-base border-b-2
-          border-gray-200 p-2 rounded-md cursor-pointer bg-white"
+            className="food-category"
           >
             <option value="other" className="bg-white">
               Select Category
@@ -191,8 +186,7 @@ const CreateContainer = () => {
               categoryData.map((category) => (
                 <option
                   key={category.id}
-                  className="text-base border-0
-              outline-none capitalize bg-white text-headingColor"
+                  className="category-option"
                   value={category.urlParam}
                 >
                   {category.name}
@@ -201,61 +195,37 @@ const CreateContainer = () => {
           </select>
         </div>
 
-        <div
-          className="group flex justify-center items-center flex-col
-        border-2 border-dotted border-gray-300 w-full h-225 md:h-420
-        cursor-pointer rounded-lg"
-        >
+        <div className="image-upload-wrapper h-225 md:h-420">
           {isLoading ? (
             <CreateLoader />
           ) : (
             <>
               {!imageAsset ? (
                 <>
-                  <label
-                    className="w-full h-full flex flex-col items-center
-              justify-center cursor-pointer"
-                  >
-                    <div
-                      className="w-full h-full flex flex-col items-center
-              justify-center gap-2"
-                    >
-                      <MdCloudUpload
-                        className="text-gray-500 text-3xl
-                  hover:text-gray-700"
-                      />
-                      <p
-                        className="text-gray-500
-                  hover:text-gray-700"
-                      >
-                        Click here to upload
-                      </p>
+                  <label className="">
+                    <div className="upload-hint-wrapper">
+                      <MdCloudUpload className="upload-hint-label" />
+                      <p className="upload-hint-text">Click here to upload</p>
                     </div>
                     <input
                       type="file"
                       name="uploadImage"
                       accept="image/*"
                       onChange={uploadImage}
-                      className="w-0 h-0"
+                      className="upload-image-input"
                     />
                   </label>
                 </>
               ) : (
                 <>
-                  <div className="relative h-full">
-                    <img
-                      src={imageAsset}
-                      alt="Uploaded Image"
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="image-wrapper">
+                    <img src={imageAsset} alt="Uploaded" className="" />
                     <button
                       type="button"
-                      className=" absolute bottom-3 right-3 p-3 rounded-full bg-red-500 
-                      text-xl cursor-pointer outline-none hover:shadow-md duration-500
-                      transition-all ease-in-out"
+                      className="delete-button"
                       onClick={deleteImage}
                     >
-                      <MdDelete className="text-white" />
+                      <MdDelete className="delete-icon" />
                     </button>
                   </div>
                 </>
@@ -297,12 +267,10 @@ const CreateContainer = () => {
           </div>
         </div>
 
-        <div className="flex items-center w-full">
+        <div className="save-button-wrapper">
           <button
             type="button"
-            className="ml-0 md:ml-auto w-full
-          md:w-auto border-none outline-none bg-emerald-500 px-12 py-2 
-          rounded-lg text-lg text-white font-semibold"
+            className="ml-0 md:ml-auto w-full md:w-auto save-button"
             onClick={saveDetails}
           >
             Save
@@ -313,4 +281,4 @@ const CreateContainer = () => {
   );
 };
 
-export default CreateContainer;
+export default CreatePage;

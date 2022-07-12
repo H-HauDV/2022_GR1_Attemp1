@@ -3,9 +3,10 @@ import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { RiRefreshFill } from "react-icons/ri";
 
 import { motion } from "framer-motion";
-import { useStateValue } from "../../../context/StateProvider"
+import { saveCartToFirebase } from "../../../utils/firebaseFunctions";
+import { useStateValue } from "../../../context/StateProvider";
 import { actionType } from "../../../context/reducer";
-import EmptyCart from "../../../img/emptyCart.svg"
+import EmptyCart from "../../../img/emptyCart.svg";
 import CartItem from "../../Mix/CartItem";
 
 const CartContainer = () => {
@@ -20,11 +21,12 @@ const CartContainer = () => {
     });
   };
 
+  const checkout = () => {};
   useEffect(() => {
     let totalPrice = cartItems.reduce(function (accumulator, item) {
       return accumulator + item.qty * item.price;
     }, 0);
-    setTot(totalPrice);
+    setTot(Math.round(totalPrice * 100) / 100);
     // console.log(tot);
   }, [tot, flag]);
 
@@ -61,7 +63,7 @@ const CartContainer = () => {
 
       {/* bottom section */}
       {cartItems && cartItems.length > 0 ? (
-        <div className="w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col">
+        <div className="w-full h-full  rounded-t-[2rem] flex flex-col">
           {/* cart Items section */}
           <div className="w-full h-340 md:h-42 px-6 py-10 flex flex-col gap-3 overflow-y-scroll scrollbar-none">
             {/* cart Item */}

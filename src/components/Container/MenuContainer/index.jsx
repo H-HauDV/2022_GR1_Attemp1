@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IoFastFood } from "react-icons/io5";
+import { GiChickenOven, IoFish, GiMeat, GiNoodles, BiDrink } from "react-icons/gi";
 import { categoryData } from "../../../utils/categoryData";
 import { motion } from "framer-motion";
 import { useStateValue } from "../../../context/StateProvider";

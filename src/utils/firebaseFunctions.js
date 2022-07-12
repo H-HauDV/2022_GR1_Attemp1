@@ -22,3 +22,10 @@ export const getAllFoodItems = async () => {
 
   return items.docs.map((doc) => doc.data());
 };
+
+export const saveCartToFirebase = async (data) => {
+  await setDoc(doc(firestore, "orders", `${Date.now()}`), data, {
+    merge: true,
+  });
+};
+
