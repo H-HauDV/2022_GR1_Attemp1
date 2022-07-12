@@ -3,10 +3,10 @@ import { useStateValue } from "../../../context/StateProvider";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { motion } from "framer-motion";
 
-import CartContainer from "../CartContainer";
-import HomeContainer from "../HomeContainer"
-import MenuContainer from "../MenuContainer";
-import RowContainer from "../RowContainer";
+import CartContainer from "../../Container/CartContainer";
+import HomeContainer from "../../Container/HomeContainer";
+import MenuContainer from "../../Container/MenuContainer";
+import HomeCarousel from "../../Mix/HomeCarousel";
 
 const MainContainer = () => {
   const [{ foodItems, cartShow }, dispatch] = useStateValue();
@@ -41,11 +41,7 @@ const MainContainer = () => {
             </motion.div>
           </div>
         </div>
-        <RowContainer
-          scrollValue={scrollValue}
-          flag={true}
-          data={foodItems?.filter((n) => n.category === "fruits")}
-        />
+        <HomeCarousel/>
       </section>
 
       <MenuContainer />

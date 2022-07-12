@@ -1,0 +1,93 @@
+.food-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  position: relative;
+  background-color: rgba(256, 256, 256, 0.4);
+  border-radius: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-top: 48px;
+  margin-bottom: 48px;
+  width: 275px;
+  min-width: 275px;
+  height: 175px;
+  .food-card-top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .image-container {
+      width: 160px;
+      height: 160px;
+      margin-top: -32px;
+      --tw-drop-shadow: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+      filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast)
+        var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert)
+        var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+      .food-image {
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .add-cart-button {
+      width: 32px;
+      height: 32px;
+      margin-top: -32px;
+      border-radius: 9999px;
+      --tw-bg-opacity: 1;
+      background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+  }
+  .food-card-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-top: -24px;
+    .food-title {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 20px;
+    }
+    .food-calory {
+      margin-top: 0px;
+      font-size: 14px;
+      line-height: 12px;
+      --tw-text-opacity: 1;
+      color: rgb(107 114 128 / var(--tw-text-opacity));
+    }
+    .food-price-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0px;
+      padding-bottom: 16px;
+      .food-price-container {
+        font-size: 18px;
+        line-height: 16px;
+        --tw-text-opacity: 1;
+        color: rgb(46 46 46 / var(--tw-text-opacity));
+        font-weight: 600;
+
+        .food-price-text {
+          font-size: 16px;
+          line-height: 20px;
+          --tw-text-opacity: 1;
+          color: rgb(239 68 68 / var(--tw-text-opacity));
+        }
+      }
+    }
+  }
+}
+.food-card:hover {
+    background-color: rgba(256, 256, 256, 0.6);
+  }

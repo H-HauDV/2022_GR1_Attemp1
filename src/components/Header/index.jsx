@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { Link } from "react-router-dom";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { actionType } from "../../context/reducer";
@@ -6,11 +7,14 @@ import { useStateValue } from "../../context/StateProvider";
 import { app } from "../../firebase.config";
 
 import { MdShoppingBasket, MdLogout, MdAdd } from "react-icons/md";
-import Logo from "../../img/logo.png";
-import Avatar from "../../img/avatar.png";
-import { motion } from "framer-motion";
+import { FaGoogle, FaFacebookF, FaTwitter } from "react-icons/fa";
 
+import Logo from "../../img/logo.png";
+import { motion } from "framer-motion";
+import { Button, Modal, Checkbox, Form, Input, Row, Tooltip } from "antd";
+import "./header.css";
 const Header = () => {
+  const Avatar = "https://joeschmoe.io/api/v1/random";
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
@@ -49,7 +53,30 @@ const Header = () => {
       cartShow: !cartShow,
     });
   };
+  const [loginModalVisible, setloginModalVisible] = useState(false);
+  const [loginConfirmLoading, setLoginConfirmLoading] = useState(false);
+  const showLoginModal = () => {
+    setloginModalVisible(true);
+  };
+  const handleLoginCancel = () => {
+    console.log("Clicked cancel button");
+    setloginModalVisible(false);
+  };
 
+  const handleLoginOk = () => {
+    setLoginConfirmLoading(true);
+    setTimeout(() => {
+      setloginModalVisible(false);
+      setLoginConfirmLoading(false);
+    }, 2000);
+  };
+  const onFinish = (values) => {
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <header className="fixed z-50 w-screen p-3 px-4 md:p-6 md:px-16 bg-primary">
       {/* desktop & tablet */}
@@ -100,7 +127,7 @@ const Header = () => {
               src={user ? user.photoURL : Avatar}
               className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full"
               alt="userprofile"
-              onClick={login}
+              onClick={showLoginModal}
             />
             {isMenu && (
               <motion.div
@@ -159,7 +186,7 @@ const Header = () => {
             src={user ? user.photoURL : Avatar}
             className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full"
             alt="userprofile"
-            onClick={login}
+            onClick={showLoginModal}
           />
           {isMenu && (
             <motion.div
@@ -212,6 +239,104 @@ const Header = () => {
             </motion.div>
           )}
         </div>
+      </div>
+      {/* Login modal */}
+      <div>
+        <Modal
+          title="Login"
+          centered
+          visible={loginModalVisible}
+          onOk={handleLoginOk}
+          confirmLoading={loginConfirmLoading}
+          onCancel={handleLoginCancel}
+        >
+          <Form
+            name="basic"
+            wrapperCol={{
+              span: 32,
+            }}
+            initialValues={{
+              remember: true,
+            }}
+            autoComplete="off"
+          >
+            <Form.Item
+              name="username"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your username!",
+                },
+              ]}
+            >
+              <Tooltip title="Enter your username">
+                <Input className="login-input" placeholder="Username" />
+              </Tooltip>
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+            >
+              <Tooltip title="Enter password">
+                <Input.Password
+                  className="login-input"
+                  placeholder="Password"
+                />
+              </Tooltip>
+            </Form.Item>
+
+            <Form.Item
+              name="remember"
+              valuePropName="checked"
+              wrapperCol={{
+                offset: 0,
+                span: 8,
+              }}
+            >
+              <Tooltip title="Remember for next time">
+                <Checkbox>Remember me</Checkbox>
+              </Tooltip>
+            </Form.Item>
+
+            <Form.Item className="login-submit-row">
+              <Button
+                className="login-submit"
+                type="primary"
+                htmlType="submit"
+                onClick={onFinish}
+              >
+                Login
+              </Button>
+              <p className="login-help-row">
+                <a className="login-help">Forgot your password ?</a>
+                <a className="login-help">Sign Up</a>
+              </p>
+            </Form.Item>
+            <Row className="login-other">
+              <Button className="social-login-button mr-10">
+                <Tooltip title="Login with google">
+                  <FaGoogle className="social-login-icon" />
+                </Tooltip>
+              </Button>
+              <Button className="social-login-button mr-10">
+                <Tooltip title="Login with Facebook">
+                  <FaFacebookF className="social-login-icon" />
+                </Tooltip>
+              </Button>
+              <Button className="social-login-button">
+                <Tooltip title="Login with twitter">
+                  <FaTwitter className="social-login-icon" />
+                </Tooltip>
+              </Button>
+            </Row>
+          </Form>
+        </Modal>
       </div>
     </header>
   );

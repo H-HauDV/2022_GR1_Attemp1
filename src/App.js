@@ -1,5 +1,13 @@
 import React, { useEffect } from "react";
-import { Header, CreateContainer, MainContainer, ProfileContainer } from "./components";
+import "antd/dist/antd.min.css";
+import {
+  Header,
+  CreatePage,
+  MainPage,
+  ProfilePage,
+  AdminPage,
+  NotFoundPage,
+} from "./components";
 import { Route, Routes } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useStateValue } from "./context/StateProvider";
@@ -27,10 +35,13 @@ const App = () => {
         <Header className="" />
         <main className="mt-14 md:mt-20 px-4 md:px-16 py-4 w-full ">
           <Routes>
-            <Route path="/*" element={<MainContainer />} />
-            <Route path="/create" element={<CreateContainer />} />
-            <Route path="/profile" element={<ProfileContainer />} />
+            {/* Not found */}
+            <Route exact path="*" element={<NotFoundPage />} />
+            <Route exact path="/" element={<MainPage />} />
 
+            <Route path="/create" element={<CreatePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/admin" element={<AdminPage />} />
           </Routes>
         </main>
       </div>
