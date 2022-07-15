@@ -107,6 +107,7 @@ const CreatePage = () => {
           price: price,
           qty: 1,
         };
+        console.log(data)
         saveItem(data);
         setIsLoading(false);
         setFields(true);

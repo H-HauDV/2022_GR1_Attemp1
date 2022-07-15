@@ -3,17 +3,33 @@ import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { RiRefreshFill } from "react-icons/ri";
 
 import { motion } from "framer-motion";
-import { saveCartToFirebase } from "../../../utils/firebaseFunctions";
+import { saveOrder } from "../../../utils/firebaseFunctions";
 import { useStateValue } from "../../../context/StateProvider";
 import { actionType } from "../../../context/reducer";
 import EmptyCart from "../../../img/emptyCart.svg";
 import CartItem from "../../Mix/CartItem";
+import {toObject} from "../../../utils/mix"
 
 const CartContainer = () => {
   const [{ cartShow, cartItems, user }, dispatch] = useStateValue();
   const [flag, setFlag] = useState(1);
   const [tot, setTot] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
+  const saveOrderAfterLogin = () => {
+    const date = new Date();
+    setIsLoading(true);
+    const orderDetail={itemList:cartItems.map(item => ({ ...item}))};
+    
+    orderDetail["userInfo"]={email:user.email, userId:user.uid}
+    orderDetail["date"]=date;
+    orderDetail["shipFee"]=2.5;
+    orderDetail["status"]=0;
+    console.log(orderDetail)
+
+    saveOrder(orderDetail)
+    clearCart();
+  };
   const showCart = () => {
     dispatch({
       type: actionType.SET_CART_SHOW,
@@ -104,8 +120,9 @@ const CartContainer = () => {
                 whileTap={{ scale: 0.8 }}
                 type="button"
                 className="w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg"
+                onClick={saveOrderAfterLogin}
               >
-                Check Out
+                {isLoading ? "Saving order" : "Check Out"}
               </motion.button>
             ) : (
               <motion.button

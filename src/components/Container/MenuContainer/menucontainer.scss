@@ -1,0 +1,33 @@
+.menu-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .search-wrapper{
+        .search-bar{
+            display: flex;
+            flex-direction: row;
+            border-radius: 15px;
+            background-color: white;
+            align-items: center;
+            .search-input{
+                border-style: none;
+                border-radius: 15px;
+                font-size: 20px;
+                padding: 10px;
+                min-width: 500px;
+                min-height: 25px;
+                padding-left: 20px;
+            }
+            .search-input:focus-visible{
+                border-style: none;
+                outline: none;
+            }
+            .search-icon{
+                height: 30px;
+                margin-right: 10px;
+            }
+        }
+    }
+}
