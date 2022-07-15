@@ -319,7 +319,7 @@ const Header = () => {
               </p>
             </Form.Item>
             <Row className="login-other">
-              <Button className="social-login-button mr-10">
+              <Button className="social-login-button mr-10" onClick={login}>
                 <Tooltip title="Login with google">
                   <FaGoogle className="social-login-icon" />
                 </Tooltip>
