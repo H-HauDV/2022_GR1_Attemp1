@@ -11,9 +11,9 @@ const AdminPage = () => {
   useEffect(() => {
     const fetchOrderData = async () => {
       await getAllOrder().then((rawDataFromFirebase) => {
-        console.log("raw");
+        // console.log("raw");
         setAllOrders(rawDataFromFirebase);
-        console.log(allOrders);
+        // console.log(allOrders);
         setIsDataLoaded("true");
       });
     };
@@ -25,11 +25,12 @@ const AdminPage = () => {
     // console.log("foodList")
 
     // console.log(foodList)
-    // foodList.map((foodItem)=>{
-    //   console.log("fooditem")
-    //   console.log(foodItem)
-    //   price+=foodItem.price
-    // })
+    foodList.map((foodItem)=>{
+      console.log("fooditem")
+      console.log(foodItem)
+      totalPrice+=foodItem.price
+    })
+    return totalPrice;
   }
   const defaultExpandable = {
     expandedRowRender: (record) => <p>{record.description}</p>,
@@ -48,6 +49,7 @@ const AdminPage = () => {
         second: "2-digit",
       }).format(anOrder.date.seconds * 1000),
       email: anOrder.userInfo.email,
+      totalPrice: calcTotalPriceForAnOrder(anOrder.itemList),
       itemList: anOrder.itemList,
     });
   });
@@ -104,6 +106,7 @@ const AdminPage = () => {
             //   return record.children ? true : false;
             // },
           }}
+          loading={!isDataLoaded}
           dataSource={ordersDataToTable}
           columns={columnsForAllOrders}
         />

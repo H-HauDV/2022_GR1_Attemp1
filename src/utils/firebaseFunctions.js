@@ -19,10 +19,17 @@ export const saveItem = async (data) => {
 // Get food items
 export const getAllFoodItems = async () => {
   const items = await getDocs(
-    query(collection(firestore, "foodItems"), orderBy("id", "desc"))
+    query(collection(firestore, "foodItems"))
   );
 
-  return items.docs.map((doc) => doc.data());
+  // return items.docs.map((doc) => doc.data());
+  let retArr = [];
+  items.docs.map((doc) => {
+    let obj=doc.data();
+    obj.id=doc.id
+    retArr.push(obj)
+  });
+  return retArr;
 };
 // Save order
 export const saveOrder = async (data) => {
@@ -41,14 +48,4 @@ export const getAllOrder = async () => {
   });
   // return items.docs.map((doc) => doc.data());
   return retArr;
-};
-//Get all order 2
-const q = query(collection(firestore, "orders"));
-
-export const querySnapshot = async () => {
-  getDocs(q);
-  querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
-  });
 };

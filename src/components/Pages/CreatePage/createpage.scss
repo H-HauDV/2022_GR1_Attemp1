@@ -8,7 +8,8 @@
     width: 75%;
     border-width: 1px;
     --tw-border-opacity: 1;
-    border-color: rgb(209 213 219 / var(--tw-border-opacity));
+    // border-color: rgb(209 213 219 / var(--tw-border-opacity));
+    border-width: 2px;
     border-radius: 8px;
     padding: 16px;
     display: flex;
@@ -57,31 +58,31 @@
     }
     .food-category-wrapper {
       width: 100%;
-      .food-category {
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-        width: 100%;
-        font-size: 16px;
-        line-height: 24px;
-        border-bottom-width: 2px;
-        --tw-border-opacity: 1;
-        border-color: rgb(229 231 235 / var(--tw-border-opacity));
-        padding: 8px;
-        border-radius: 6px;
-        cursor: pointer;
-        --tw-bg-opacity: 1;
-        background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-        .category-option {
-          font-size: 16px;
-          line-height: 24px;
-          border-width: 0px;
-          outline: 2px solid transparent;
-          outline-offset: 2px;
-          text-transform: capitalize;
-          --tw-bg-opacity: 1;
-          background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-          --tw-text-opacity: 1;
-          color: rgb(46 46 46 / var(--tw-text-opacity));
+      .categories-selector {
+        .ant-select-selector {
+          border-radius: 5px;
+          min-height: 35px;
+          .ant-select-selection-overflow {
+            .ant-select-selection-overflow-item {
+              .ant-select-selection-item {
+                border-radius: 5px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                .ant-select-selection-item-content {
+                  font-size: 16px;
+                }
+                .ant-select-selection-item-remove {
+                  font-size: 12px;
+                  display: flex;
+                  justify-content: center;
+                }
+              }
+            }
+          }
+          .ant-select-selection-placeholder {
+            font-size: 18px;
+          }
         }
       }
     }
@@ -199,6 +200,63 @@
         color: rgb(255 255 255 / var(--tw-text-opacity));
         font-weight: 600;
       }
+    }
+    .calo-price-wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      .calo-wrapper,
+      .price-wrapper {
+        width: 100%;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        gap: 8px;
+        border-bottom-width: 1px;
+        --tw-border-opacity: 1;
+        border-color: rgb(209 213 219 / var(--tw-border-opacity));
+        display: flex;
+        align-items: center;
+        .icon {
+          --tw-text-opacity: 1;
+          color: rgb(55 65 81 / var(--tw-text-opacity));
+          font-size: 24px;
+          line-height: 32px;
+        }
+        .input {
+          width: 100%;
+          height: 100%;
+          font-size: 1.125rem /* 18px */;
+          line-height: 1.75rem /* 28px */;
+          background-color: transparent;
+          outline: 2px solid transparent;
+          outline-offset: 2px;
+          border-style: none;
+          --tw-text-opacity: 1;
+          color: rgb(81 81 81 / var(--tw-text-opacity));
+        }
+        .input::placeholder {
+          --tw-text-opacity: 1;
+          color: rgb(156 163 175 / var(--tw-text-opacity));
+        }
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        /* Firefox */
+        input[type="number"] {
+          -moz-appearance: textfield;
+        }
+      }
+    }
+  }
+  .create-confirm-modal {
+    .ant-modal-close {
+      display: none;
+      visibility: hidden;
     }
   }
 }

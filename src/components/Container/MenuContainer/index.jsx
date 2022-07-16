@@ -9,14 +9,38 @@ import "./menucontainer.scss";
 
 import Item from "antd/lib/list/Item";
 const MenuContainer = () => {
-  const [filter, setFilter] = useState("chicken");
+  const [categoryFilter, setCategoryFilter] = useState("chicken");
   const [searchText, setSearchText] = useState("");
 
   const [{ foodItems }, dispatch] = useStateValue();
+  const [displayFood, setDisplayFood] = useState([]);
+
   const onSearchInput = (e) => {
     setSearchText(e.target.value);
     console.log(searchText);
   };
+
+  const categoryFilterOnCLick = (event, param) => {
+    setDisplayFood([]);
+    console.log(param);
+    setCategoryFilter(param);
+  };
+  useEffect(() => {
+    const refinedSearch = () => {
+      if (!foodItems) {
+      } else {
+        foodItems.map((aFoodItems) => {
+          if (aFoodItems.categories.includes(categoryFilter)) {
+            setDisplayFood((displayFood) => [...displayFood, aFoodItems]);
+          }
+          const withoutDuplicates = [...new Set(displayFood)];
+          setDisplayFood(withoutDuplicates);
+        });
+        console.log(displayFood);
+      }
+    };
+    refinedSearch();
+  }, [searchText, categoryFilter]);
   return (
     <section className="w-full my-6" id="menu">
       <div className="menu-container">
@@ -29,40 +53,40 @@ const MenuContainer = () => {
             categoryData.map((category) => (
               <motion.div
                 whileTap={{ scale: 0.75 }}
-                key={category.id}
+                key={category.urlParam}
                 className={`group ${
-                  filter === category.urlParam ? "bg-cartNumBg" : "bg-white"
+                  categoryFilter === category.urlParam
+                    ? "bg-cartNumBg"
+                    : "bg-white"
                 } w-24 min-w-[94px] h-28
           cursor-pointer rounded-lg drop-shadow-lg flex flex-col
           gap-3 items-center justify-center hover:bg-cartNumBg`}
-                onClick={() => setFilter(category.urlParam)}
+                // onClick={() => setFilter(category.urlParam)}
+                onClick={(event) =>
+                  categoryFilterOnCLick(event, category.urlParam)
+                }
               >
                 <div
                   className={`w-10 h-10 rounded-full shadow-lg ${
-                    filter === category.urlParam ? "bg-white" : "bg-cartNumBg"
+                    categoryFilter === category.urlParam
+                      ? "bg-white"
+                      : "bg-cartNumBg"
                   } 
             group-hover:bg-white flex items-center justify-center`}
                 >
                   <div
                     className={` ${
-                      filter === category.urlParam
+                      categoryFilter === category.urlParam
                         ? "text-textColor"
                         : "text-white"
                     }  group-hover:text-black text-lg`}
                   >
                     {category.icon}
-                    {/* <IoFastFood
-                    className={` ${
-                      filter === category.urlParam
-                        ? "text-textColor"
-                        : "text-white"
-                    }  group-hover:text-black text-lg`}
-                  /> */}
                   </div>
                 </div>
                 <p
                   className={`text-sm ${
-                    filter === category.urlParam
+                    categoryFilter === category.urlParam
                       ? "text-white"
                       : "text-textColor"
                   } group-hover:text-white`}
@@ -93,10 +117,7 @@ const MenuContainer = () => {
           </div>
         </div>
         <div className="w-full">
-          <RowContainer
-            flag={false}
-            data={foodItems?.filter((n) => n.category == filter)}
-          />
+          <RowContainer flag={false} data={displayFood} />
         </div>
       </div>
     </section>

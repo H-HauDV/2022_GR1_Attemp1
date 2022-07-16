@@ -15,19 +15,22 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import { Select, Button, Modal } from "antd";
 import { storage } from "../../../firebase.config";
 import { saveItem } from "../../../utils/firebaseFunctions";
 import { useStateValue } from "../../../context/StateProvider";
 import { getAllFoodItems } from "../../../utils/firebaseFunctions";
 import { actionType } from "../../../context/reducer";
 import "./createpage.scss";
+const { Option } = Select;
+
 const CreatePage = () => {
   const [{ foodItems }, dispatch] = useStateValue();
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
   const [price, setPrice] = useState("");
 
-  const [category, setCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
   const [imageAsset, setImageAsset] = useState(null);
   const [fields, setFields] = useState(false);
 
@@ -70,7 +73,6 @@ const CreatePage = () => {
       }
     );
   };
-
   const deleteImage = () => {
     setIsLoading(true);
     const deleteRef = ref(storage, imageAsset);
@@ -85,57 +87,12 @@ const CreatePage = () => {
       }, 4000);
     });
   };
-
-  const saveDetails = () => {
-    setIsLoading(true);
-    try {
-      if (!title || !calories || !imageAsset || !price || !category) {
-        setFields(true);
-        setMsg("Required fields cannot be empty");
-        setAlertStatus("danger");
-        setTimeout(() => {
-          setFields(false);
-          setIsLoading(false);
-        }, 4000);
-      } else {
-        const data = {
-          id: `${Date.now()}`,
-          title: title,
-          imageURL: imageAsset,
-          category: category,
-          calories: calories,
-          price: price,
-          qty: 1,
-        };
-        console.log(data)
-        saveItem(data);
-        setIsLoading(false);
-        setFields(true);
-        setMsg("Data added successfully");
-        setAlertStatus("success");
-        clearData();
-        setTimeout(() => {
-          setFields(false);
-        }, 4000);
-      }
-    } catch (error) {
-      console.log(error);
-      setFields(true);
-      setMsg("Error while uploading ! Try again");
-      setAlertStatus("danger");
-      setTimeout(() => {
-        setFields(false);
-        setIsLoading(false);
-      }, 4000);
-    }
-    fetchData();
-  };
   const clearData = () => {
     setTitle("");
     setImageAsset(null);
     setPrice("");
     setCalories("");
-    setCategory("Select Category");
+    setCategories([]);
   };
   const fetchData = async () => {
     await getAllFoodItems().then((data) => {
@@ -145,9 +102,97 @@ const CreatePage = () => {
       });
     });
   };
+  const categoryDataToSelect = [];
+  categoryData.map((aCategory) => {
+    categoryDataToSelect.push(
+      <Option key={aCategory.name}>{aCategory.name}</Option>
+    );
+  });
+  const handleCategoriesChange = (value) => {
+    // console.log(`selected ${value}`);
+    setCategories(value);
+    console.log(categories);
+  };
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalText, setModalText] = useState("Content of the modal");
+  const [modalTitle, setModalTitle] = useState("Title of the modal");
+  const [isDataValid, setIsDataValid] = useState(false);
+
+  const showModal = () => {
+    setModalVisible(true);
+    if (
+      !title ||
+      !calories ||
+      !imageAsset ||
+      !price ||
+      categories.length == 0
+    ) {
+      setModalTitle(
+        <h1 style={{ color: "#e74c3c" }}>Please check required field</h1>
+      );
+      setModalText("Required fields cannot be empty");
+      setIsDataValid(false);
+    } else {
+      setModalTitle("Do you want to save?");
+      setModalText("Click ok to save to database, cancel to continue edit");
+      setIsDataValid(true);
+    }
+  };
+  const handleModalOk = () => {
+    if (isDataValid) {
+      try {
+        const data = {
+          title: title,
+          imageURL: imageAsset,
+          categories: categories,
+          calories: Number(calories),
+          price: Number(price),
+          status: 1,
+        };
+        console.log(data);
+        saveItem(data);
+        setModalTitle(<h1 style={{ color: "#27ae60" }}>Success</h1>);
+        setModalText("Data saved to database");
+        clearData();
+        setTimeout(() => {
+          setModalVisible(false);
+          setConfirmLoading(false);
+        }, 4000);
+      } catch (error) {
+        console.log(error);
+        setModalTitle(
+          <h1 style={{ color: "#e74c3c" }}>
+            Error while uploading ! Try again
+          </h1>
+        );
+        setModalText(error);
+        setTimeout(() => {
+          setModalVisible(false);
+          setConfirmLoading(false);
+        }, 4000);
+      }
+      setModalText("This modal will be closed after two seconds");
+      setConfirmLoading(true);
+      setTimeout(() => {
+        setModalVisible(false);
+        setConfirmLoading(false);
+      }, 2000);
+      fetchData();
+    } else {
+      setModalVisible(false);
+    }
+  };
+  const handleModalCancel = () => {
+    setModalVisible(false);
+  };
   return (
     <div className="create-container">
-      <div className=" md:w-[75%] create-wrapper">
+      <div className={`md:w-[75%] create-wrapper ${
+              isDataValid === true
+                ? "border-emerald-400"
+                : "border-[#e67e22]"
+            }`}>
         {fields && (
           <motion.p
             initial={{ opacity: 0 }}
@@ -176,24 +221,19 @@ const CreatePage = () => {
         </div>
 
         <div className="food-category-wrapper">
-          <select
-            onChange={(e) => setCategory(e.target.value)}
-            className="food-category"
+          <Select
+            mode="multiple"
+            allowClear
+            style={{
+              width: "100%",
+            }}
+            placeholder="Please select categories"
+            onChange={handleCategoriesChange}
+            value={categories}
+            className="categories-selector"
           >
-            <option value="other" className="bg-white">
-              Select Category
-            </option>
-            {categoryData &&
-              categoryData.map((category) => (
-                <option
-                  key={category.id}
-                  className="category-option"
-                  value={category.urlParam}
-                >
-                  {category.name}
-                </option>
-              ))}
-          </select>
+            {categoryDataToSelect}
+          </Select>
         </div>
 
         <div className="image-upload-wrapper h-225 md:h-420">
@@ -235,35 +275,29 @@ const CreatePage = () => {
           )}
         </div>
 
-        <div className="w-full flex flex-col md:flex-row items-center gap-3">
-          <div
-            className="w-full py-2 border-b border-gray-300 flex items-center
-          gap-2"
-          >
-            <MdFoodBank className="text-gray-700 text-2xl" />
+        <div className="calo-price-wrapper md:flex-row flex-col">
+          <div className="calo-wrapper">
+            <MdFoodBank className="icon" />
             <input
-              type="text"
+              type="number"
               required
               placeholder="Calories"
               value={calories}
               onChange={(e) => setCalories(e.target.value)}
-              className="w-full h-full text-lg bg-transparent outline-none
-            border-none placeholder:text-gray-400 text-textClolor"
+              className="input"
             />
           </div>
           <div
-            className="w-full py-2 border-b border-gray-300 flex items-center
-          gap-2"
+            className="price-wrapper"
           >
             <MdAttachMoney className="text-gray-700 text-2xl" />
             <input
-              type="text"
+              type="number"
               required
               placeholder="Price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              className="w-full h-full text-lg bg-transparent outline-none
-            border-none placeholder:text-gray-400 text-textClolor"
+              className="input"
             />
           </div>
         </div>
@@ -272,12 +306,23 @@ const CreatePage = () => {
           <button
             type="button"
             className="ml-0 md:ml-auto w-full md:w-auto save-button"
-            onClick={saveDetails}
+            onClick={showModal}
           >
             Save
           </button>
         </div>
       </div>
+      <Modal
+        className="create-confirm-modal"
+        centered
+        title={modalTitle}
+        visible={modalVisible}
+        onOk={handleModalOk}
+        confirmLoading={confirmLoading}
+        onCancel={handleModalCancel}
+      >
+        <p>{modalText}</p>
+      </Modal>
     </div>
   );
 };

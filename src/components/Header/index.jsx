@@ -12,7 +12,7 @@ import { FaGoogle, FaFacebookF, FaTwitter } from "react-icons/fa";
 import Logo from "../../img/logo.png";
 import { motion } from "framer-motion";
 import { Button, Modal, Checkbox, Form, Input, Row, Tooltip } from "antd";
-import "./header.css";
+import "./header.scss";
 const Header = () => {
   const Avatar = "https://joeschmoe.io/api/v1/random";
   const firebaseAuth = getAuth(app);
@@ -243,6 +243,7 @@ const Header = () => {
       {/* Login modal */}
       <div>
         <Modal
+          className="login-modal"
           title="Login"
           centered
           visible={loginModalVisible}

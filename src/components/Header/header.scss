@@ -1,85 +1,84 @@
-.ant-modal{
-    width: 220px;
-}
-.ant-modal-title{
+.login-modal {
+  width: 220px;
+  .ant-modal-title {
     text-align: center;
-}
-.ant-modal-close, .ant-modal-footer{
+  }
+  .ant-modal-close,
+  .ant-modal-footer {
     display: none;
-}
-.ant-modal-content, .ant-modal-header{
+  }
+  .ant-modal-content,
+  .ant-modal-header {
     border-radius: 20px;
     border-bottom: none;
-}
-.ant-modal-title{
+  }
+  .ant-modal-title {
     text-transform: uppercase;
     font-size: 30px;
     margin-top: 10px;
     margin-bottom: 10px;
-
-}
-.ant-modal-body{
+  }
+  .ant-modal-body {
     margin-left: 40px;
     margin-right: 40px;
     margin-top: 10px;
-
-}
-.ant-input{
+  }
+  .ant-input {
     line-height: 2.2;
-}
-.ant-form-item-control-input-content{
+  }
+  .ant-form-item-control-input-content {
     justify-content: center;
     display: flex;
-}
-.login-other{
+  }
+  .login-other {
     margin-bottom: 0px;
     display: flex;
     justify-content: center;
-}
-.login-input{
+  }
+  .login-input {
     background-color: #ecf0f1;
     border-radius: 20px;
-}
-.login-input input{
+  }
+  .login-input input {
     background-color: #ecf0f1;
-}
-.social-login-button{
+  }
+  .social-login-button {
     min-width: 50px;
     min-height: 40px;
     border-style: none;
-}
-.social-login-icon{
+  }
+  .social-login-icon {
     min-width: 20px;
     min-height: 20px;
-}
-.login-submit{
+  }
+  .login-submit {
     border-radius: 20px;
     border-style: none;
     font-size: 16px;
     padding: 0px 20px;
     background-color: #2ecc71;
-}
-.login-submit:hover{
+  }
+  .login-submit:hover {
     border-color: #2ecc71;
     border-style: solid;
     border-width: 2px;
     background-color: #ffffff;
     color: black;
-}
-.ant-form-item-control-input-content{
+  }
+  .ant-form-item-control-input-content {
     display: flex;
     flex-direction: column;
-
-}
-.login-help-row{
+  }
+  .login-help-row {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 8px;
-}
-.login-help{
+  }
+  .login-help {
     font-weight: 500;
-}
-.login-help:hover{
+  }
+  .login-help:hover {
     text-decoration: underline;
+  }
 }

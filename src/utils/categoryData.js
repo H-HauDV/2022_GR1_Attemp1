@@ -7,32 +7,32 @@ export const categoryData = [
   {
     id: 1,
     name: "Chicken",
-    urlParam: "chicken",
+    urlParam: "Chicken",
     icon: <GiChickenOven />,
   },
   {
     id: 2,
     name: "Fish",
-    urlParam: "fish",
+    urlParam: "Fish",
     icon: <IoFish/>,
   },
   {
     id: 3,
     name: "Pork",
-    urlParam: "pork",
+    urlParam: "Pork",
     icon: <GiMeat/>,
 
   },
   {
     id: 4,
     name: "Noodles",
-    urlParam: "noodles",
+    urlParam: "Noodles",
     icon: <GiNoodles/>,
   },
   {
     id: 5,
     name: "Drink",
-    urlParam: "drink",
+    urlParam: "Drink",
     icon: <BiDrink/>,
 
   },
