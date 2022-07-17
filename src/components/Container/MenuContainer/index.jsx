@@ -29,6 +29,13 @@ const MenuContainer = () => {
     }
     return value > 1;
   };
+  const isItemsHaveName = (value) => {
+    console.log(searchText.toLowerCase())
+    if (value.title.toLowerCase().includes(searchText.toLowerCase())) {
+      return 1;
+    }
+    return value > 1;
+  };
   useEffect(() => {
     console.log(foodItems);
     // foodItems?.filter((n) => n.category == categoryFilter)
@@ -106,7 +113,7 @@ const MenuContainer = () => {
         <div className="w-full">
           <RowContainer
             flag={false}
-            data={!foodItems ? [] : foodItems.filter(isItemsHaveCate)}
+            data={!foodItems ? [] : foodItems.filter(isItemsHaveCate).filter(isItemsHaveName)}
           />
         </div>
       </div>
