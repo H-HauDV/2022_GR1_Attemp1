@@ -9,6 +9,8 @@ export { default as CartItem } from "./Mix/CartItem";
 export { default as HomeCarousel } from "./Mix/HomeCarousel";
 
 export { default as CreateLoader } from "./Loader/CreateLoader";
+export { default as RowContainerLoader } from "./Loader/RowContainerLoader";
+
 
 export { default as ProfilePage } from "./Pages/ProfilePage";
 export { default as MainPage } from "./Pages/MainPage";
