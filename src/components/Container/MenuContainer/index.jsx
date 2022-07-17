@@ -9,7 +9,7 @@ import "./menucontainer.scss";
 
 import Item from "antd/lib/list/Item";
 const MenuContainer = () => {
-  const [categoryFilter, setCategoryFilter] = useState("chicken");
+  const [categoryFilter, setCategoryFilter] = useState("Chicken");
   const [searchText, setSearchText] = useState("");
 
   const [{ foodItems }, dispatch] = useStateValue();
@@ -21,34 +21,24 @@ const MenuContainer = () => {
   };
 
   const categoryFilterOnCLick = (event, param) => {
-    setDisplayFood([]);
-    console.log(param);
     setCategoryFilter(param);
   };
+  const isItemsHaveCate = (value) => {
+    if (value.categories.includes(categoryFilter)) {
+      return 1;
+    }
+    return value > 1;
+  };
   useEffect(() => {
-    const refinedSearch = () => {
-      if (!foodItems) {
-      } else {
-        foodItems.map((aFoodItems) => {
-          if (aFoodItems.categories.includes(categoryFilter)) {
-            setDisplayFood((displayFood) => [...displayFood, aFoodItems]);
-          }
-          const withoutDuplicates = [...new Set(displayFood)];
-          setDisplayFood(withoutDuplicates);
-        });
-        console.log(displayFood);
-      }
-    };
-    refinedSearch();
-  }, [searchText, categoryFilter]);
+    console.log(foodItems);
+    // foodItems?.filter((n) => n.category == categoryFilter)
+  }, [searchText, categoryFilter, foodItems]);
   return (
     <section className="w-full my-6" id="menu">
       <div className="menu-container">
-        <p className="text-2xl font-semibold capitalize text-headingColor relative before:absolute before:rounded-lg before:content before:w-16 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto">
-          Our Hot Dishes
-        </p>
+        <p className="title ">Our Hot Dishes</p>
 
-        <div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none">
+        <div className="categories-wrapper justify-start lg:justify-center">
           {categoryData &&
             categoryData.map((category) => (
               <motion.div
@@ -58,21 +48,18 @@ const MenuContainer = () => {
                   categoryFilter === category.urlParam
                     ? "bg-cartNumBg"
                     : "bg-white"
-                } w-24 min-w-[94px] h-28
-          cursor-pointer rounded-lg drop-shadow-lg flex flex-col
-          gap-3 items-center justify-center hover:bg-cartNumBg`}
+                } cate-card `}
                 // onClick={() => setFilter(category.urlParam)}
                 onClick={(event) =>
                   categoryFilterOnCLick(event, category.urlParam)
                 }
               >
                 <div
-                  className={`w-10 h-10 rounded-full shadow-lg ${
+                  className={`cate-card-wrapper ${
                     categoryFilter === category.urlParam
                       ? "bg-white"
                       : "bg-cartNumBg"
-                  } 
-            group-hover:bg-white flex items-center justify-center`}
+                  } group-hover:bg-white`}
                 >
                   <div
                     className={` ${
@@ -117,7 +104,10 @@ const MenuContainer = () => {
           </div>
         </div>
         <div className="w-full">
-          <RowContainer flag={false} data={displayFood} />
+          <RowContainer
+            flag={false}
+            data={!foodItems ? [] : foodItems.filter(isItemsHaveCate)}
+          />
         </div>
       </div>
     </section>
