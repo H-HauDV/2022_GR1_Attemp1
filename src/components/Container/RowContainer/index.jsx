@@ -62,6 +62,7 @@ const RowContainer = ({ flag, data, scrollValue }) => {
                       console.log(items);
                       console.log(cartItems);
                       if (!items.includes(item)) {
+                        item.qty = 1;
                         setItems([...cartItems, item]);
                       } else {
                         console.log("Item already in cart");
