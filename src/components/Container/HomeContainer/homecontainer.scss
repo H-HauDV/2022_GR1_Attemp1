@@ -1,0 +1,28 @@
+.home-wrapper {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  .home-left {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+    .deliver-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      --tw-bg-opacity: 1;
+      background-color: rgb(255 237 213 / var(--tw-bg-opacity));
+      padding-left: 16px;
+      padding-right: 16px;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      border-radius: 9999px;
+    }
+  }
+}

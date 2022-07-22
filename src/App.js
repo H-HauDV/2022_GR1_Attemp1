@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "antd/dist/antd.min.css";
 import {
   Header,
   CreatePage,
@@ -13,7 +12,7 @@ import { AnimatePresence } from "framer-motion";
 import { useStateValue } from "./context/StateProvider";
 import { getAllFoodItems } from "./utils/firebaseFunctions";
 import { actionType } from "./context/reducer";
-
+import "antd/dist/antd.min.css";
 const App = () => {
   const [{ foodItems }, dispatch] = useStateValue();
 

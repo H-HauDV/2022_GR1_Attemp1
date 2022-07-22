@@ -1,4 +1,4 @@
-import { firestore, database } from "../firebase.config";
+import { firestore } from "../firebase.config";
 
 import {
   collection,
@@ -6,8 +6,7 @@ import {
   setDoc,
   getDocs,
   query,
-  orderBy,
-  where,
+  updateDoc,
 } from "firebase/firestore";
 //Saving new item
 export const saveItem = async (data) => {
@@ -48,4 +47,20 @@ export const getAllOrder = async () => {
   });
   // return items.docs.map((doc) => doc.data());
   return retArr;
+};
+
+// Save user additional info
+export const saveUserAdditionalInfo = async (data) => {
+  
+  await setDoc(doc(firestore, "users", data.uid), data, {
+    merge: true,
+  });
+};
+
+// Update order status
+export const updateOrderStatus = async (data) => {
+  const orderRef = doc(firestore, "orders", data.id);
+  await updateDoc(orderRef, {
+    status: data.status
+  });
 };
